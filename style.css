@@ -283,3 +283,11 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     display:block !important;
   }
 }
+
+
+/* Beenden: um exakt eine eigene Buttonhöhe nach unten versetzt */
+@media(max-width:600px){
+  .game-end-button{
+    transform:translate(-50%, 100%) !important;
+  }
+}
