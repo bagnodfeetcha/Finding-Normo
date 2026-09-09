@@ -286,7 +286,7 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
 /* Nur Credits-/Quellenabschnitt im Info-Fenster */
 .info-credits{
   display:block;
-  font-size:10pt;
+  font-size:12pt;
 }
 
 
@@ -297,5 +297,34 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     top:calc(78dvh + 46px) !important;
     bottom:auto !important;
     transform:translateX(-50%) !important;
+  }
+}
+
+
+/* Installierte App: Beenden dauerhaft exakt eine Buttonhöhe unter der ursprünglichen Position */
+@media(max-width:600px) and (display-mode: standalone){
+  .game-end-button{
+    top:auto !important;
+    bottom:calc(196px + env(safe-area-inset-bottom)) !important;
+    transform:translateX(-50%) !important;
+  }
+}
+
+
+/* Beenden in Online + App:
+   mittig; Abstand von Unterkante OK bis Oberkante Beenden = 3,5 × OK-Höhe.
+   OK-Höhe 46px -> Abstand 161px. */
+@media(max-width:600px){
+  .game-end-button{
+    display:block !important;
+    position:fixed !important;
+    left:50% !important;
+    right:auto !important;
+    top:auto !important;
+    bottom:calc(81px + env(safe-area-inset-bottom)) !important;
+    transform:translateX(-50%) !important;
+    height:46px !important;
+    min-height:46px !important;
+    margin:0 !important;
   }
 }
