@@ -119,3 +119,20 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     background:transparent !important;
   }
 }
+
+
+/* Auswertung: iOS Bottom-Safe-Area vollständig mit Hintergrund abdecken */
+@media(max-width:600px){
+  body.abschlussbildschirm::before{
+    top:calc(-2px - env(safe-area-inset-top));
+    right:-2px;
+    bottom:calc(-2px - env(safe-area-inset-bottom));
+    left:-2px;
+  }
+
+  body.abschlussbildschirm,
+  body.abschlussbildschirm #app,
+  body.abschlussbildschirm .result-screen{
+    min-height:calc(100dvh + env(safe-area-inset-bottom));
+  }
+}
