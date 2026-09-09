@@ -1,0 +1,15 @@
+{
+  "name": "Finding Normo",
+  "short_name": "Finding Normo",
+  "description": "Finding Normo – Training zur Kapitelstruktur der DIN EN ISO 9001.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#172019",
+  "theme_color": "#172019",
+  "orientation": "any",
+  "icons": [
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
