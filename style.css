@@ -164,3 +164,18 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     flex:0 0 90px;
   }
 }
+
+
+/* Desktop/Online: Gameplay-Buttons exakt gleich groß */
+@media(min-width:601px){
+  .answer-row .game-end-button,
+  .answer-row .mobile-action{
+    display:block !important;
+    width:90px !important;
+    min-width:90px !important;
+    height:46px !important;
+    min-height:46px !important;
+    padding:0 10px !important;
+    flex:0 0 90px !important;
+  }
+}
