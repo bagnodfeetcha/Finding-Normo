@@ -237,3 +237,28 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     line-height:1;
   }
 }
+
+
+/* Nur installierte iPhone-App: Abweichungen zur Online-Version korrigieren */
+@media (display-mode: standalone) and (max-width:600px){
+  html,
+  body:not(.abschlussbildschirm){
+    background-position:center center !important;
+  }
+
+  .normo-keypad,
+  .normo-keypad button{
+    touch-action:manipulation;
+    -webkit-user-select:none;
+    user-select:none;
+  }
+
+  .result-inner{
+    min-height:0 !important;
+    padding-bottom:18px !important;
+  }
+
+  .result-dialog-close{
+    margin-bottom:0 !important;
+  }
+}
