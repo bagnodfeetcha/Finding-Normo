@@ -271,3 +271,15 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     display:block !important;
   }
 }
+
+
+/* Native Handytastatur + bestehende OK-Taste auch in der Online-Variante */
+@media(max-width:600px){
+  .normo-keypad{
+    display:none !important;
+  }
+
+  .mobile-action{
+    display:block !important;
+  }
+}
