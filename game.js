@@ -245,6 +245,7 @@ function drawQuestion() {
             <button type="button" data-key=".">.</button>
             <button type="button" data-key="0">0</button>
             <button type="button" data-key="back">⌫</button>
+            <button type="button" class="keypad-end" data-key="end">ENDE</button>
             <button type="button" class="keypad-ok" data-key="ok">OK</button>
         </div>
     `;
@@ -264,6 +265,11 @@ function drawQuestion() {
             } else {
                 check(input.value);
             }
+            return;
+        }
+
+        if (key === "end") {
+            confirmEnd();
             return;
         }
 

@@ -199,3 +199,23 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     object-position:center 38%;
   }
 }
+
+
+/* Mobile: kein springender separater Beenden-Button mehr.
+   ENDE sitzt fest als eigene Taste in der In-App-Tastatur. */
+@media(max-width:600px){
+  .game-end-button{
+    display:none !important;
+  }
+
+  .normo-keypad .keypad-end{
+    grid-column:1;
+    width:100%;
+    background:#252d20;
+  }
+
+  .normo-keypad .keypad-ok{
+    grid-column:2 / 4;
+    width:100%;
+  }
+}
