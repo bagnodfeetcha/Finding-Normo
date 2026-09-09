@@ -246,13 +246,6 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     background-position:center center !important;
   }
 
-  .normo-keypad,
-  .normo-keypad button{
-    touch-action:manipulation;
-    -webkit-user-select:none;
-    user-select:none;
-  }
-
   .result-inner{
     min-height:0 !important;
     padding-bottom:18px !important;
