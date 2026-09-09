@@ -219,3 +219,21 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     width:100%;
   }
 }
+
+
+/* Tastatur: Abstand zu den Displayrändern + größeres Löschen-Symbol */
+@media(max-width:600px){
+  .normo-keypad{
+    left:10px;
+    right:10px;
+    width:auto;
+    border:1px solid #7d8650;
+    border-bottom:0;
+    box-sizing:border-box;
+  }
+
+  .normo-keypad button[data-key="back"]{
+    font-size:30px;
+    line-height:1;
+  }
+}
