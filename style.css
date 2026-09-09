@@ -291,3 +291,11 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     transform:translate(-50%, 100%) !important;
   }
 }
+
+
+/* Nur Online-Version: Beenden um eine eigene Buttonhöhe nach unten */
+@media(max-width:600px) and (display-mode: browser){
+  .game-end-button{
+    transform:translate(-50%, 200%) !important;
+  }
+}
