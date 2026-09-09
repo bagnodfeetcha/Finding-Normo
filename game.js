@@ -124,7 +124,17 @@ const [infoHeading, ...infoBody] = INFO.split("\n");
 const infoTitle = document.createElement("h1");
 infoTitle.textContent = infoHeading;
 infoText.before(infoTitle);
-infoText.textContent = infoBody.join("\n");
+const infoContent = infoBody.join("\n");
+const creditsStart = infoContent.indexOf("Idee und Umsetzung: JAS");
+if (creditsStart !== -1) {
+    infoText.textContent = infoContent.slice(0, creditsStart);
+    const credits = document.createElement("span");
+    credits.className = "info-credits";
+    credits.textContent = infoContent.slice(creditsStart);
+    infoText.appendChild(credits);
+} else {
+    infoText.textContent = infoContent;
+}
 document.getElementById("closeInfo").onclick = () => dlg.close();
 document.getElementById("closeToc").onclick = () => tocDlg.close();
 
@@ -318,11 +328,11 @@ function check(answer) {
 
     if (earnedPoints === possiblePoints) {
         feedback.textContent =
-            `OK   |   ${earnedPoints}/${possiblePoints} Punkte   |   ENTER für die nächste Frage`;
+            `OK   |   ${earnedPoints}/${possiblePoints} Punkte   |   WEITER für die nächste Frage`;
         feedback.className = "feedback ok";
     } else {
         feedback.textContent =
-            `${earnedPoints}/${possiblePoints} Punkte   |   Richtige Antwort: ${correctAnswer}\nENTER für die nächste Frage`;
+            `${earnedPoints}/${possiblePoints} Punkte   |   Richtige Antwort: ${correctAnswer}\nWEITER für die nächste Frage`;
 
         feedback.className = "feedback wrong";
     }
