@@ -227,7 +227,7 @@ function drawQuestion() {
         <div class="prompt">Welches Kapitel gehört zu diesem Kapitelnamen?</div>
         <div class="question">${current[1]}</div>
         <div class="answer-row">
-            <input class="answer" id="answer" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input class="answer" id="answer" inputmode="text" enterkeyhint="done" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
             <div id="mobileActionSlot"></div>
         </div>
         <div class="feedback" id="feedback"></div>
