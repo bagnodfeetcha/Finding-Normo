@@ -7,7 +7,6 @@ const APP_FILES = [
   "./manifest.webmanifest",
   "./background.png",
   "./background-mobile.png",
-  "./result-waller.png",
   "./abschlussbildschirm-desktop.png",
   "./abschlussbildschirm-mobile.png",
   "./icon-192.png",

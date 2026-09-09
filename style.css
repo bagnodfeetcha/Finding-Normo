@@ -132,3 +132,70 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
   .result-inner h1{font-size:24px}
   .result-waller{max-height:190px}
 }
+
+
+/* Eigene feste Zahlentastatur */
+.normo-keypad{display:none}
+
+@media(max-width:600px){
+  .mobile-action{
+    display:none !important;
+  }
+
+  .normo-keypad{
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    z-index:40;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
+    background:#172019;
+    border-top:1px solid #7d8650;
+    box-sizing:border-box;
+  }
+
+  .normo-keypad button{
+    min-width:0;
+    height:44px;
+    padding:0;
+    font-size:21px;
+  }
+
+  .normo-keypad .keypad-ok{
+    grid-column:1 / -1;
+    height:44px;
+  }
+
+  /* Beenden bleibt fix oberhalb der eigenen Tastatur */
+  .game-end-button{
+    position:fixed !important;
+    left:50% !important;
+    right:auto !important;
+    top:auto !important;
+    bottom:calc(242px + env(safe-area-inset-bottom)) !important;
+    transform:translateX(-50%) !important;
+    width:auto !important;
+    min-width:0 !important;
+    padding-left:14px !important;
+    padding-right:14px !important;
+    margin:0 !important;
+    z-index:41;
+  }
+
+  /* Auswertung etwas höher, mehr vom vorhandenen Wallerbild sichtbar */
+  .result-dialog{
+    max-height:94vh;
+  }
+
+  .result-inner{
+    min-height:76vh;
+  }
+
+  .result-waller{
+    max-height:290px;
+    object-position:center 38%;
+  }
+}
