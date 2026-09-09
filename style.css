@@ -283,28 +283,19 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     display:block !important;
   }
 }
-
-
-/* Beenden: um exakt eine eigene Buttonhöhe nach unten versetzt */
-@media(max-width:600px){
-  .game-end-button{
-    transform:translate(-50%, 100%) !important;
-  }
+/* Nur Credits-/Quellenabschnitt im Info-Fenster */
+.info-credits{
+  display:block;
+  font-size:10pt;
 }
 
 
-/* Nur Online-Version: Beenden um eine eigene Buttonhöhe nach unten */
+/* Online mobil: Beenden dauerhaft an derselben vertikalen Position.
+   top statt bottom verhindert Verschieben durch die native Tastatur/Visual-Viewport-Höhe. */
 @media(max-width:600px) and (display-mode: browser){
   .game-end-button{
-    transform:translate(-50%, 200%) !important;
-  }
-}
-
-
-/* KORREKTUR nur Online: Beenden exakt eine Buttonhöhe (46px) unter die ursprüngliche Position */
-@media(max-width:600px) and (display-mode: browser){
-  .game-end-button{
-    bottom:calc(196px + env(safe-area-inset-bottom)) !important;
+    top:calc(78dvh + 46px) !important;
+    bottom:auto !important;
     transform:translateX(-50%) !important;
   }
 }
