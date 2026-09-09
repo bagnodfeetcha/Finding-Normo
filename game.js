@@ -1,13 +1,3 @@
-if (window.matchMedia("(display-mode: standalone)").matches) {
-    const viewport = document.querySelector('meta[name="viewport"]');
-    if (viewport) {
-        viewport.setAttribute(
-            "content",
-            "width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"
-        );
-    }
-}
-
 const QUESTIONS = [
 ["1","Anwendungsbereich"],
 ["2","Normative Verweisungen"],
@@ -237,68 +227,13 @@ function drawQuestion() {
         <div class="prompt">Welches Kapitel gehört zu diesem Kapitelnamen?</div>
         <div class="question">${current[1]}</div>
         <div class="answer-row">
-            <input class="answer" id="answer" inputmode="none" enterkeyhint="done" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input class="answer" id="answer" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
             <div id="mobileActionSlot"></div>
         </div>
         <div class="feedback" id="feedback"></div>
         <div class="buttons" id="gameButtons"></div>
-        <div class="normo-keypad" id="normoKeypad" aria-label="Zahlentastatur">
-            <button type="button" data-key="1">1</button>
-            <button type="button" data-key="2">2</button>
-            <button type="button" data-key="3">3</button>
-            <button type="button" data-key="4">4</button>
-            <button type="button" data-key="5">5</button>
-            <button type="button" data-key="6">6</button>
-            <button type="button" data-key="7">7</button>
-            <button type="button" data-key="8">8</button>
-            <button type="button" data-key="9">9</button>
-            <button type="button" data-key=".">.</button>
-            <button type="button" data-key="0">0</button>
-            <button type="button" data-key="back">⌫</button>
-            <button type="button" class="keypad-end" data-key="end">ENDE</button>
-            <button type="button" class="keypad-ok" data-key="ok">OK</button>
-        </div>
     `;
     const input = document.getElementById("answer");
-    const keypad = document.getElementById("normoKeypad");
-    input.readOnly = true;
-
-    keypad.addEventListener("click", (event) => {
-        const keyButton = event.target.closest("button[data-key]");
-        if (!keyButton) return;
-
-        const key = keyButton.dataset.key;
-
-        if (key === "ok") {
-            if (waiting) {
-                next();
-            } else {
-                check(input.value);
-            }
-            return;
-        }
-
-        if (key === "end") {
-            confirmEnd();
-            return;
-        }
-
-        if (waiting) return;
-
-        if (key === "back") {
-            input.value = input.value.slice(0, -1);
-            return;
-        }
-
-        if (key === ".") {
-            if (input.value && !input.value.endsWith(".")) {
-                input.value += ".";
-            }
-            return;
-        }
-
-        input.value += key;
-    });
 
     const mobileAction = btn("OK", () => {
         if (waiting) {

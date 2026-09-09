@@ -255,3 +255,19 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     margin-bottom:0 !important;
   }
 }
+
+
+/* Eingabe wieder über die native Handytastatur */
+@media(max-width:600px){
+  .normo-keypad{
+    display:none !important;
+  }
+
+  .mobile-action{
+    display:block !important;
+  }
+
+  .game-end-button{
+    display:block !important;
+  }
+}
