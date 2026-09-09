@@ -78,6 +78,7 @@ const QUESTIONS = [
 ["10.2","Nichtkonformität und Korrekturmaßnahmen"],
 ["10.3","Fortlaufende Verbesserung"]
 ];
+
 const INFO = `Willkommen im Morast der DIN EN ISO 9001.
 Ich bin NORMo, der weise Waller.
 Du glaubst, du bist der ISO 9001 auf den Grund gekommen? Weit gefehlt. Unter jedem Kapitel der Norm lauert eine weitere schlammige Schicht aus Unterkapiteln und du sinkst immer tiefer in
@@ -110,25 +111,32 @@ Quellengabe & credits: Inhalt (Kapitelnummern und -namen) basierend auf "Inhalts
 
 *********
 `;
+
 const panel = document.getElementById("panel");
 const dlg = document.getElementById("info");
 const tocDlg = document.getElementById("toc");
 const infoText = document.getElementById("infoText");
+
 const [infoHeading, ...infoBody] = INFO.split("\n");
 const infoTitle = document.createElement("h1");
 infoTitle.textContent = infoHeading;
 infoText.before(infoTitle);
+
 const infoContent = infoBody.join("\n");
 const creditsStart = infoContent.indexOf("Idee und Umsetzung: JAS");
+
 if (creditsStart !== -1) {
     infoText.textContent = infoContent.slice(0, creditsStart);
+
     const credits = document.createElement("span");
     credits.className = "info-credits";
     credits.textContent = infoContent.slice(creditsStart);
+
     infoText.appendChild(credits);
 } else {
     infoText.textContent = infoContent;
 }
+
 document.getElementById("closeInfo").onclick = () => dlg.close();
 document.getElementById("closeToc").onclick = () => tocDlg.close();
 
@@ -140,11 +148,14 @@ function renderToc() {
     QUESTIONS.forEach(([number, name]) => {
         const level = number.split(".").length;
         const line = document.createElement("div");
+
         line.className = `toc-line toc-level-${level}`;
         line.textContent = `${number} ${level === 1 ? name.toUpperCase() : name}`;
+
         tocText.appendChild(line);
     });
 }
+
 renderToc();
 
 let mode = null;
@@ -160,10 +171,12 @@ let waiting = false;
 function shuffled() {
     return (() => {
         const shuffled = [...QUESTIONS];
+
         for (let i = shuffled.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
             [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
+
         return shuffled;
     })();
 }
@@ -179,25 +192,33 @@ function startScreen() {
     document.body.classList.remove("abschlussbildschirm");
     current = null;
     waiting = false;
+
     panel.className = "screen";
     panel.innerHTML =
         '<h1 class="title">Was willst du machen?</h1>' +
         '<div class="buttons" id="buttons"></div>';
 
     const buttons = document.getElementById("buttons");
+
     buttons.append(
         btn("10 Fragen", () => start("10")),
         btn("Endloser Schlamm", () => start("infinite")),
         btn("reaDINg", () => tocDlg.showModal()),
-        (() => { const b = btn("Info", () => dlg.showModal()); b.className = "info-button"; return b; })()
+        (() => {
+            const b = btn("Info", () => dlg.showModal());
+            b.className = "info-button";
+            return b;
+        })()
     );
 }
 
 function start(selectedMode) {
     mode = selectedMode;
+
     maxQuestions =
         selectedMode === "10" ? 10 :
         null;
+
     pool = shuffled();
     answered = 0;
     correct = 0;
@@ -217,8 +238,10 @@ function next() {
     if (pool.length === 0) {
         pool = shuffled();
     }
+
     current = pool.pop();
     waiting = false;
+
     drawQuestion();
 }
 
@@ -232,34 +255,56 @@ function status() {
 
 function drawQuestion() {
     panel.className = "screen";
+
     panel.innerHTML = `
         <div class="status">${status()}</div>
         <div class="prompt">Welches Kapitel gehört zu diesem Kapitelnamen?</div>
         <div class="question">${current[1]}</div>
+
         <div class="answer-row">
             <div id="endActionSlot"></div>
-            <input class="answer" id="answer" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+
+            <input
+                class="answer"
+                id="answer"
+                inputmode="decimal"
+                enterkeyhint="done"
+                autocomplete="off"
+                autocapitalize="off"
+                autocorrect="off"
+                spellcheck="false"
+            >
+
             <div id="mobileActionSlot"></div>
         </div>
+
         <div class="feedback" id="feedback"></div>
         <div class="buttons" id="gameButtons"></div>
     `;
 
     const input = document.getElementById("answer");
-    const mobileAction = btn(" Okay ", () => {
+
+    const mobileAction = btn("Okay", () => {
         if (waiting) {
             next();
         } else {
             check(input.value);
         }
     });
+
     mobileAction.className = "mobile-action";
     mobileAction.id = "mobileAction";
-    document.getElementById("mobileActionSlot").append(mobileAction);
+
+    document
+        .getElementById("mobileActionSlot")
+        .append(mobileAction);
 
     const endButton = btn("Beenden", confirmEnd);
     endButton.className = "game-end-button";
-    document.getElementById("endActionSlot").append(endButton);
+
+    document
+        .getElementById("endActionSlot")
+        .append(endButton);
 
     input.focus();
     input.addEventListener("keydown", handleEnter);
@@ -284,17 +329,24 @@ function check(answer) {
     if (!answer.trim()) {
         return;
     }
+
     const correctAnswer = current[0];
     const correctParts = correctAnswer.split(".").filter(Boolean);
-    const normalizedAnswer = answer.trim().replace(/,/g, ".");
-    const answerParts = normalizedAnswer.split(".").filter(Boolean);
+
+    const normalizedAnswer =
+        answer.trim().replace(/,/g, ".");
+
+    const answerParts =
+        normalizedAnswer.split(".").filter(Boolean);
 
     const points = [1, 2, 3, 4];
 
     const possiblePoints = points
         .slice(0, correctParts.length)
         .reduce((sum, value) => sum + value, 0);
+
     let earnedPoints = 0;
+
     correctParts.forEach((part, index) => {
         if (
             index < answerParts.length &&
@@ -311,7 +363,9 @@ function check(answer) {
     if (earnedPoints === possiblePoints) {
         correct++;
     }
+
     waiting = true;
+
     const feedback = document.getElementById("feedback");
     const input = document.getElementById("answer");
     const mobileAction = document.getElementById("mobileAction");
@@ -319,6 +373,7 @@ function check(answer) {
     if (earnedPoints === possiblePoints) {
         feedback.textContent =
             `OK   |   ${earnedPoints}/${possiblePoints} Punkte   |   WEITER für die nächste Frage`;
+
         feedback.className = "feedback ok";
     } else {
         feedback.textContent =
@@ -328,27 +383,43 @@ function check(answer) {
     }
 
     document.querySelector(".status").textContent = status();
+
     if (mobileAction) {
         mobileAction.textContent = "Weiter";
     }
+
     input.readOnly = true;
     input.focus();
 }
 
 function confirmEnd() {
     const overlay = document.createElement("div");
+
     overlay.className = "end-confirm-overlay";
+
     overlay.innerHTML = `
-        <div class="end-confirm-box" role="dialog" aria-modal="true" aria-label="Wirklich aufhören?">
-            <div class="end-confirm-text">Wirklich aufhören?</div>
+        <div
+            class="end-confirm-box"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Wirklich aufhören?"
+        >
+            <div class="end-confirm-text">
+                Wirklich aufhören?
+            </div>
+
             <div class="end-confirm-buttons">
                 <button type="button" id="endConfirmYes">Ja</button>
                 <button type="button" id="endConfirmNo">Nein</button>
             </div>
         </div>
     `;
+
     document.body.appendChild(overlay);
-    document.getElementById("endConfirmNo").onclick = () => overlay.remove();
+
+    document.getElementById("endConfirmNo").onclick =
+        () => overlay.remove();
+
     document.getElementById("endConfirmYes").onclick = () => {
         overlay.remove();
         results();
@@ -367,16 +438,33 @@ Punkte: ${score} von ${maxScore} (${maxScore ? (score / maxScore * 100).toFixed(
 
     startScreen();
 
-    const resultDialog = document.createElement("dialog");
+    const resultDialog =
+        document.createElement("dialog");
+
     resultDialog.className = "result-dialog";
+
     resultDialog.innerHTML = `
         <div class="result-inner">
-            <img class="result-waller" src="result-waller.png" alt="">
+            <img
+                class="result-waller"
+                src="result-waller.png"
+                alt=""
+            >
+
             <h1>Auswertung</h1>
-            <div class="results">${text}</div>
-            <button type="button" class="result-dialog-close" aria-label="Schließen">×</button>
+
+            <div class="results">
+                ${text}
+            </div>
+
+            <button
+                type="button"
+                class="result-dialog-close"
+                aria-label="Schließen"
+            >×</button>
         </div>
     `;
+
     document.body.appendChild(resultDialog);
     resultDialog.showModal();
 
@@ -385,11 +473,17 @@ Punkte: ${score} von ${maxScore} (${maxScore ? (score / maxScore * 100).toFixed(
         resultDialog.remove();
     };
 
-    resultDialog.querySelector(".result-dialog-close").onclick = closeResult;
-    resultDialog.addEventListener("cancel", (event) => {
-        event.preventDefault();
-        closeResult();
-    });
+    resultDialog
+        .querySelector(".result-dialog-close")
+        .onclick = closeResult;
+
+    resultDialog.addEventListener(
+        "cancel",
+        (event) => {
+            event.preventDefault();
+            closeResult();
+        }
+    );
 }
 
 startScreen();
