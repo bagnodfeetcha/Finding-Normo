@@ -227,7 +227,7 @@ function drawQuestion() {
         <div class="prompt">Welches Kapitel gehört zu diesem Kapitelnamen?</div>
         <div class="question">${current[1]}</div>
         <div class="answer-row">
-            <input class="answer" id="answer" inputmode="text" enterkeyhint="done" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
+            <input class="answer" id="answer" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
             <div id="mobileActionSlot"></div>
         </div>
         <div class="feedback" id="feedback"></div>
@@ -246,7 +246,7 @@ function drawQuestion() {
 
     document.getElementById("mobileActionSlot").append(mobileAction);
 
-    const endButton = btn("Beenden", results);
+    const endButton = btn("Beenden", confirmEnd);
     endButton.className = "game-end-button";
     document.getElementById("gameButtons").append(endButton);
     input.focus();
@@ -326,6 +326,26 @@ function check(answer) {
     input.readOnly = true;
     input.focus();
 }
+function confirmEnd() {
+    const overlay = document.createElement("div");
+    overlay.className = "end-confirm-overlay";
+    overlay.innerHTML = `
+        <div class="end-confirm-box" role="dialog" aria-modal="true" aria-label="Wirklich aufhören?">
+            <div class="end-confirm-text">Wirklich aufhören?</div>
+            <div class="end-confirm-buttons">
+                <button type="button" id="endConfirmYes">Ja</button>
+                <button type="button" id="endConfirmNo">Nein</button>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    document.getElementById("endConfirmNo").onclick = () => overlay.remove();
+    document.getElementById("endConfirmYes").onclick = () => {
+        overlay.remove();
+        results();
+    };
+}
+
 function results() {
     waiting = false;
     current = null;
