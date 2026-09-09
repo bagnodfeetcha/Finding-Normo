@@ -286,7 +286,7 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
 /* Nur Credits-/Quellenabschnitt im Info-Fenster */
 .info-credits{
   display:block;
-  font-size:12pt;
+  font-size:12pt !important;
 }
 
 
@@ -326,5 +326,17 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     height:46px !important;
     min-height:46px !important;
     margin:0 !important;
+  }
+}
+
+
+/* Mobile Online + App: Vertikalposition wird exakt an der realen OK-Taste ausgerichtet. */
+@media(max-width:600px){
+  .game-end-button{
+    position:fixed !important;
+    left:50% !important;
+    right:auto !important;
+    bottom:auto !important;
+    transform:translateX(-50%) !important;
   }
 }

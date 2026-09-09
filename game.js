@@ -181,6 +181,29 @@ function btn(text, action) {
     return b;
 }
 
+function positionMobileEndButton() {
+    if (!window.matchMedia("(max-width:600px)").matches) return;
+
+    const okButton = document.getElementById("mobileAction");
+    const endButton = document.querySelector(".game-end-button");
+    if (!okButton || !endButton) return;
+
+    const okRect = okButton.getBoundingClientRect();
+    const top = okRect.bottom + (okRect.height * 3.5);
+
+    endButton.style.setProperty("top", `${top}px`, "important");
+    endButton.style.setProperty("bottom", "auto", "important");
+    endButton.style.setProperty("left", "50%", "important");
+    endButton.style.setProperty("right", "auto", "important");
+    endButton.style.setProperty("transform", "translateX(-50%)", "important");
+}
+
+window.addEventListener("resize", positionMobileEndButton);
+if (window.visualViewport) {
+    window.visualViewport.addEventListener("resize", positionMobileEndButton);
+    window.visualViewport.addEventListener("scroll", positionMobileEndButton);
+}
+
 function startScreen() {
     document.body.classList.remove("abschlussbildschirm");
     current = null;
@@ -270,6 +293,7 @@ function drawQuestion() {
 
     input.focus();
     input.addEventListener("keydown", handleEnter);
+    requestAnimationFrame(positionMobileEndButton);
 }
 
 function handleEnter(event) {
