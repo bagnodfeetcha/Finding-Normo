@@ -56,3 +56,35 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     margin:22px auto 0;
   }
 }
+
+
+/* Display fix: standalone iPhone centering + result background edge artifacts */
+@media(max-width:600px){
+  body:not(.abschlussbildschirm){
+    background-position:center center;
+  }
+
+  html:has(body.abschlussbildschirm){
+    background-color:#172019;
+    background-image:none;
+  }
+
+  body.abschlussbildschirm{
+    background-position:center center;
+    background-size:cover;
+    background-repeat:no-repeat;
+  }
+}
+
+
+/* Beenden-Button: exakt mittig und etwas schmaler */
+@media(max-width:600px){
+  .game-end-button{
+    left:50%;
+    transform:translateX(-50%);
+    width:auto;
+    min-width:0;
+    padding-left:14px;
+    padding-right:14px;
+  }
+}
