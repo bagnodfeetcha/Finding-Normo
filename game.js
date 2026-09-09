@@ -249,12 +249,11 @@ function drawQuestion() {
     const endButton = btn("Beenden", confirmEnd);
     endButton.className = "game-end-button";
     document.getElementById("gameButtons").append(endButton);
+
     if (window.innerWidth <= 600) {
-        requestAnimationFrame(() => {
-            const buttonHeight = endButton.getBoundingClientRect().height || 46;
-            const inputBottom = input.getBoundingClientRect().bottom;
-            endButton.style.setProperty("--end-button-top", `${inputBottom + 1.75 * buttonHeight}px`);
-        });
+        const inputRect = input.getBoundingClientRect();
+        const buttonHeight = endButton.getBoundingClientRect().height || 46;
+        endButton.style.top = `${inputRect.bottom + (1.75 * buttonHeight)}px`;
     }
 
     input.focus();
@@ -365,20 +364,32 @@ function results() {
             : `Fragen richtig: ${correct} von ${answered} (${(correct / answered * 100).toFixed(1)} %)
 Punkte: ${score} von ${maxScore} (${maxScore ? (score / maxScore * 100).toFixed(1) : "0.0"} %)`;
 
-    document.body.classList.add("abschlussbildschirm");
-    panel.className = "screen result-screen";
-    panel.innerHTML = `
-        <div class="result-content">
-            <h1 class="title">Auswertung</h1>
+    startScreen();
+
+    const resultDialog = document.createElement("dialog");
+    resultDialog.className = "result-dialog";
+    resultDialog.innerHTML = `
+        <div class="result-inner">
+            <img class="result-waller" src="result-waller.png" alt="">
+            <h1>Auswertung</h1>
             <div class="results">${text}</div>
+            <button type="button" class="result-dialog-close" aria-label="Schließen">×</button>
         </div>
-        <button class="result-close" id="resultClose" aria-label="Schließen">×</button>
     `;
 
-    document.getElementById("resultClose").onclick = () => {
-        document.body.classList.remove("abschlussbildschirm");
-        startScreen();
+    document.body.appendChild(resultDialog);
+    resultDialog.showModal();
+
+    const closeResult = () => {
+        resultDialog.close();
+        resultDialog.remove();
     };
+
+    resultDialog.querySelector(".result-dialog-close").onclick = closeResult;
+    resultDialog.addEventListener("cancel", (event) => {
+        event.preventDefault();
+        closeResult();
+    });
 }
 
 startScreen();

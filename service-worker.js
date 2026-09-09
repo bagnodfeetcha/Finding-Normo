@@ -1,4 +1,4 @@
-const CACHE_NAME = "finding-normo-v10";
+const CACHE_NAME = "finding-normo-v26";
 const APP_FILES = [
   "./",
   "./index.html",
@@ -7,6 +7,7 @@ const APP_FILES = [
   "./manifest.webmanifest",
   "./background.png",
   "./background-mobile.png",
+  "./result-waller.png",
   "./abschlussbildschirm-desktop.png",
   "./abschlussbildschirm-mobile.png",
   "./icon-192.png",
