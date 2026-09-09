@@ -1,1 +1,49 @@
-<!doctype html><html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>finDINg NORMo</title><meta name="theme-color" content="#172019"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Finding Normo"><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon-192.png"><link rel="stylesheet" href="style.css"></head><body><main id="app"><section id="panel"></section></main><dialog id="info"><div class="info-inner"><pre id="infoText"></pre><button id="closeInfo">Alles klar</button></div></dialog><dialog id="toc"><div class="toc-inner"><h1>DIN EN ISO 9001</h1><div id="tocText"></div><button id="closeToc">Zurück</button></div></dialog><script src="game.js"></script><script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js"));}</script></body></html>
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+  <title>finDINg NORMo</title>
+
+  <meta name="theme-color" content="#172019">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Finding Normo">
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main id="app">
+    <section id="panel"></section>
+  </main>
+
+  <dialog id="info">
+    <div class="info-inner">
+      <pre id="infoText"></pre>
+      <button id="closeInfo">Alles klar</button>
+    </div>
+  </dialog>
+
+  <dialog id="toc">
+    <div class="toc-inner">
+      <h1>DIN EN ISO 9001</h1>
+      <div id="tocText"></div>
+      <button id="closeToc">Zurück</button>
+    </div>
+  </dialog>
+
+  <script src="game.js"></script>
+
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () =>
+        navigator.serviceWorker.register("./service-worker.js")
+      );
+    }
+  </script>
+</body>
+</html>
