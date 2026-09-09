@@ -11,7 +11,6 @@ body.abschlussbildschirm{background-image:url("abschlussbildschirm-desktop.png")
 @media(max-width:600px){.game-end-button{min-width:0;width:150px;height:46px;min-height:46px;padding:0;position:fixed;left:50%;top:78dvh;transform:translateX(-50%);margin:0}}
 /* PWA/mobile: Abschlussbildschirm ohne sichtbaren Rand an Ober- oder Unterkante */
 @media(max-width:600px){html{background:#172019}body.abschlussbildschirm{min-height:100dvh;background-color:#172019;background-size:cover;background-position:center center}body.abschlussbildschirm #app{min-height:100dvh}}
-
 /* App Iteration 1: ausschließlich Mobile-Feedback */
 .end-confirm-overlay{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.65);padding:20px}.end-confirm-box{width:min(760px,92vw);max-height:88vh;border:1px solid #7d8650;background:#172019;color:#f3edcf;padding:24px;text-align:center}.end-confirm-text{font-weight:700;font-size:18px;margin-bottom:18px}.end-confirm-buttons{display:flex;justify-content:center;gap:12px}.end-confirm-buttons button{min-width:190px}
 @media(max-width:600px){
@@ -25,7 +24,6 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
 }
 @media(max-width:600px){body:not(.abschlussbildschirm){background-position:right center}}
 
-
 /* App Iteration 2: ausschließlich die angeforderten Fixes */
 .end-confirm-buttons button{
   min-width:0;
@@ -33,9 +31,7 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
   padding-left:10px;
   padding-right:10px;
 }
-
 @media(max-width:600px){
-  /* Falls iOS außerhalb des body einen Safe-Area-Streifen zeigt, liegt dort dasselbe HG-Bild. */
   html{
     background-color:#172019;
     background-image:url("background-mobile.png");
@@ -47,8 +43,6 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     background-image:url("abschlussbildschirm-mobile.png");
     background-position:center center;
   }
-
-  /* Auswertung oben, X darunter, mit Abstand. */
   body.abschlussbildschirm .result-screen{
     justify-content:center;
   }
@@ -57,8 +51,6 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
   }
 }
 
-
-/* Beenden: mittig, schmaler, Oberkante 1.75 Buttonhöhen unter dem Eingabefeld */
 @media(max-width:600px){
   .game-end-button{
     position:fixed;
@@ -72,7 +64,6 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     margin:0;
   }
 }
-
 /* Auswertung wie reaDINg / Info: normaler Haupthintergrund + abgedunkeltes Modal */
 .result-dialog{
   width:min(760px,92vw);
@@ -82,206 +73,49 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
   color:#f3edcf;
   padding:0;
 }
-.result-dialog::backdrop{
-  background:rgba(0,0,0,.65);
-}
-.result-inner{
-  padding:24px;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-}
-.result-inner h1{
-  text-align:center;
-  margin:18px 0 16px;
-  font-size:28px;
-}
-.result-waller{
-  display:block;
-  width:100%;
-  max-width:520px;
-  max-height:240px;
-  object-fit:cover;
-  object-position:center center;
-  border-radius:3px;
-}
-.result-dialog .results{
-  margin:0 0 20px;
-  text-align:center;
-  font-size:18px;
-  line-height:1.6;
-}
-.result-dialog-close{
-  min-width:0;
-  width:68px;
-  height:68px;
-  padding:0;
-  border-radius:50%;
-  background:#343a27;
-  color:#f3edcf;
-  font:700 44px/1 Arial,sans-serif;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-.result-dialog-close:hover{
-  background:#444b32;
-}
-@media(max-width:600px){
-  .result-inner{padding:18px}
-  .result-inner h1{font-size:24px}
-  .result-waller{max-height:190px}
-}
-
+.result-dialog::backdrop{background:rgba(0,0,0,.65)}
+.result-inner{padding:24px;display:flex;flex-direction:column;align-items:center}
+.result-inner h1{text-align:center;margin:18px 0 16px;font-size:28px}
+.result-waller{display:block;width:100%;max-width:520px;max-height:240px;object-fit:cover;object-position:center center;border-radius:3px}
+.result-dialog .results{margin:0 0 20px;text-align:center;font-size:18px;line-height:1.6}
+.result-dialog-close{min-width:0;width:68px;height:68px;padding:0;border-radius:50%;background:#343a27;color:#f3edcf;font:700 44px/1 Arial,sans-serif;display:flex;align-items:center;justify-content:center}
+.result-dialog-close:hover{background:#444b32}
+@media(max-width:600px){.result-inner{padding:18px}.result-inner h1{font-size:24px}.result-waller{max-height:190px}}
 
 /* Eigene feste Zahlentastatur */
 .normo-keypad{display:none}
-
 @media(max-width:600px){
-  .mobile-action{
-    display:none !important;
-  }
-
-  .normo-keypad{
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
-    z-index:40;
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    padding:10px 12px calc(10px + env(safe-area-inset-bottom));
-    background:#172019;
-    border-top:1px solid #7d8650;
-    box-sizing:border-box;
-  }
-
-  .normo-keypad button{
-    min-width:0;
-    height:44px;
-    padding:0;
-    font-size:21px;
-  }
-
-  .normo-keypad .keypad-ok{
-    grid-column:1 / -1;
-    height:44px;
-  }
-
-  /* Beenden bleibt fix oberhalb der eigenen Tastatur */
-  .game-end-button{
-    position:fixed !important;
-    left:50% !important;
-    right:auto !important;
-    top:auto !important;
-    bottom:calc(242px + env(safe-area-inset-bottom)) !important;
-    transform:translateX(-50%) !important;
-    width:auto !important;
-    min-width:0 !important;
-    padding-left:14px !important;
-    padding-right:14px !important;
-    margin:0 !important;
-    z-index:41;
-  }
-
-  /* Auswertung etwas höher, mehr vom vorhandenen Wallerbild sichtbar */
-  .result-dialog{
-    max-height:94vh;
-  }
-
-  .result-inner{
-    min-height:76vh;
-  }
-
-  .result-waller{
-    max-height:290px;
-    object-position:center 38%;
-  }
+  .mobile-action{display:none !important}
+  .normo-keypad{position:fixed;left:0;right:0;bottom:0;z-index:40;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:#172019;border-top:1px solid #7d8650;box-sizing:border-box}
+  .normo-keypad button{min-width:0;height:44px;padding:0;font-size:21px}
+  .normo-keypad .keypad-ok{grid-column:1 / -1;height:44px}
+  .game-end-button{position:fixed !important;left:50% !important;right:auto !important;top:auto !important;bottom:calc(242px + env(safe-area-inset-bottom)) !important;transform:translateX(-50%) !important;width:auto !important;min-width:0 !important;padding-left:14px !important;padding-right:14px !important;margin:0 !important;z-index:41}
+  .result-dialog{max-height:94vh}
+  .result-inner{min-height:76vh}
+  .result-waller{max-height:290px;object-position:center 38%}
 }
-
-
-/* Mobile: kein springender separater Beenden-Button mehr.
-   ENDE sitzt fest als eigene Taste in der In-App-Tastatur. */
 @media(max-width:600px){
-  .game-end-button{
-    display:none !important;
-  }
-
-  .normo-keypad .keypad-end{
-    grid-column:1;
-    width:100%;
-    background:#252d20;
-  }
-
-  .normo-keypad .keypad-ok{
-    grid-column:2 / 4;
-    width:100%;
-  }
+  .game-end-button{display:none !important}
+  .normo-keypad .keypad-end{grid-column:1;width:100%;background:#252d20}
+  .normo-keypad .keypad-ok{grid-column:2 / 4;width:100%}
 }
-
-
-/* Tastatur: Abstand zu den Displayrändern + größeres Löschen-Symbol */
 @media(max-width:600px){
-  .normo-keypad{
-    left:10px;
-    right:10px;
-    width:auto;
-    border:1px solid #7d8650;
-    border-bottom:0;
-    box-sizing:border-box;
-  }
-
-  .normo-keypad button[data-key="back"]{
-    font-size:30px;
-    line-height:1;
-  }
+  .normo-keypad{left:10px;right:10px;width:auto;border:1px solid #7d8650;border-bottom:0;box-sizing:border-box}
+  .normo-keypad button[data-key="back"]{font-size:30px;line-height:1}
 }
-
-
-/* Nur installierte iPhone-App: Abweichungen zur Online-Version korrigieren */
 @media (display-mode: standalone) and (max-width:600px){
-  html,
-  body:not(.abschlussbildschirm){
-    background-position:center center !important;
-  }
-
-  .result-inner{
-    min-height:0 !important;
-    padding-bottom:18px !important;
-  }
-
-  .result-dialog-close{
-    margin-bottom:0 !important;
-  }
+  html,body:not(.abschlussbildschirm){background-position:center center !important}
+  .result-inner{min-height:0 !important;padding-bottom:18px !important}
+  .result-dialog-close{margin-bottom:0 !important}
 }
-
-
-/* Eingabe wieder über die native Handytastatur */
 @media(max-width:600px){
-  .normo-keypad{
-    display:none !important;
-  }
-
-  .mobile-action{
-    display:block !important;
-  }
-
-  .game-end-button{
-    display:block !important;
-  }
+  .normo-keypad{display:none !important}
+  .mobile-action{display:block !important}
+  .game-end-button{display:block !important}
 }
-
-
-/* Native Handytastatur + bestehende OK-Taste auch in der Online-Variante */
 @media(max-width:600px){
-  .normo-keypad{
-    display:none !important;
-  }
-
-  .mobile-action{
-    display:block !important;
-  }
+  .normo-keypad{display:none !important}
+  .mobile-action{display:block !important}
 }
 /* Nur Credits-/Quellenabschnitt im Info-Fenster */
 .info-credits{
@@ -289,54 +123,44 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
   font-size:12pt !important;
 }
 
-
-/* Online mobil: Beenden dauerhaft an derselben vertikalen Position.
-   top statt bottom verhindert Verschieben durch die native Tastatur/Visual-Viewport-Höhe. */
-@media(max-width:600px) and (display-mode: browser){
-  .game-end-button{
-    top:calc(78dvh + 46px) !important;
-    bottom:auto !important;
-    transform:translateX(-50%) !important;
-  }
+/* Alte Mobile-Positionsregeln bleiben im Bestand erhalten.
+   Die folgenden Regeln sind die dauerhafte, abschließende Steuerung. */
+.answer-row{
+  gap:8px;
 }
-
-
-/* Installierte App: Beenden dauerhaft exakt eine Buttonhöhe unter der ursprünglichen Position */
-@media(max-width:600px) and (display-mode: standalone){
-  .game-end-button{
-    top:auto !important;
-    bottom:calc(196px + env(safe-area-inset-bottom)) !important;
-    transform:translateX(-50%) !important;
-  }
+.answer-row .answer{
+  width:140px;
 }
-
-
-/* Beenden in Online + App:
-   mittig; Abstand von Unterkante OK bis Oberkante Beenden = 3,5 × OK-Höhe.
-   OK-Höhe 46px -> Abstand 161px. */
+.answer-row .game-end-button{
+  background:#343a27;
+}
+.answer-row .game-end-button:hover{
+  background:#444b32;
+}
 @media(max-width:600px){
-  .game-end-button{
+  .answer-row{
+    width:100%;
+    gap:6px;
+  }
+  .answer-row .answer{
+    width:clamp(110px,36vw,135px);
+  }
+  .answer-row .game-end-button,
+  .answer-row .mobile-action{
     display:block !important;
-    position:fixed !important;
-    left:50% !important;
+    position:static !important;
+    left:auto !important;
     right:auto !important;
     top:auto !important;
-    bottom:calc(81px + env(safe-area-inset-bottom)) !important;
-    transform:translateX(-50%) !important;
+    bottom:auto !important;
+    transform:none !important;
+    width:auto !important;
+    min-width:0 !important;
     height:46px !important;
     min-height:46px !important;
     margin:0 !important;
-  }
-}
-
-
-/* Mobile Online + App: Vertikalposition wird exakt an der realen OK-Taste ausgerichtet. */
-@media(max-width:600px){
-  .game-end-button{
-    position:fixed !important;
-    left:50% !important;
-    right:auto !important;
-    bottom:auto !important;
-    transform:translateX(-50%) !important;
+    padding:0 10px !important;
+    z-index:auto !important;
+    flex:0 0 auto;
   }
 }

@@ -80,12 +80,10 @@ const QUESTIONS = [
 ];
 const INFO = `Willkommen im Morast der DIN EN ISO 9001.
 Ich bin NORMo, der weise Waller.
-
 Du glaubst, du bist der ISO 9001 auf den Grund gekommen? Weit gefehlt. Unter jedem Kapitel der Norm lauert eine weitere schlammige Schicht aus Unterkapiteln und du sinkst immer tiefer in
 den Schlick der Norm und ihrer Unter-Unter-Unterabschnitte...
 Damit du in der Prüfung nicht versumpfst, gibt es hier dein 9001-Survival Boot Camp:
 Ich werfe dir einen Kapitelnamen zu und du sagst mir, wo im Schlamm der Norm das Kapitel begraben liegt.
-
 Je tiefer du dich durch die Ebenen der Norm wühlen musst, desto mehr Punkte gibt’s für jeden korrekt benannten Unterabschnitt.
 Zu schwammig ausgedrückt? Ein Beispiel:
 „Messtechnische Rückführbarkeit“ = 7.1.5.2
@@ -93,7 +91,6 @@ Ebene 1 (7)       = 1 Punkt
 Ebene 2 (7.1)     = 2 Punkte
 Ebene 3 (7.1.5)   = 3 Punkte
 Ebene 4 (7.1.5.2) = 4 Punkte
-
 Mögliche Punkte bei dieser Frage total: 1 + 2 + 3 + 4 = 10
 Du kennst nur einen Teil der Antwort? Kein Problem. Wir üben ja noch. Jede richtige Ebene bringt dir ihre Punkte.
 Je tiefer du richtig liegst, desto fetter die Beute.
@@ -101,7 +98,6 @@ Je tiefer du richtig liegst, desto fetter die Beute.
 Du kannst wählen, ob du eine kurze Runde (10 Fragen) spielen willst oder open end im „Ewigen Schlamm“. In diesem Fall endet die Runde, wann immer DU sie beendest.
 
 Unter "reaDINg" findest du das komplette Inhaltsverzeichnis der ISO 9001. Also dein Trainingszettel "to go".
-
 Viel Spaß im Normensumpf und viel Erfolg auf deinem Weg zur TÜV-Prüfung.
 Du packst das!
 
@@ -114,11 +110,9 @@ Quellengabe & credits: Inhalt (Kapitelnummern und -namen) basierend auf "Inhalts
 
 *********
 `;
-
 const panel = document.getElementById("panel");
 const dlg = document.getElementById("info");
 const tocDlg = document.getElementById("toc");
-
 const infoText = document.getElementById("infoText");
 const [infoHeading, ...infoBody] = INFO.split("\n");
 const infoTitle = document.createElement("h1");
@@ -151,8 +145,8 @@ function renderToc() {
         tocText.appendChild(line);
     });
 }
-
 renderToc();
+
 let mode = null;
 let maxQuestions = null;
 let pool = [];
@@ -181,29 +175,6 @@ function btn(text, action) {
     return b;
 }
 
-function positionMobileEndButton() {
-    if (!window.matchMedia("(max-width:600px)").matches) return;
-
-    const okButton = document.getElementById("mobileAction");
-    const endButton = document.querySelector(".game-end-button");
-    if (!okButton || !endButton) return;
-
-    const okRect = okButton.getBoundingClientRect();
-    const top = okRect.bottom + (okRect.height * 3.5);
-
-    endButton.style.setProperty("top", `${top}px`, "important");
-    endButton.style.setProperty("bottom", "auto", "important");
-    endButton.style.setProperty("left", "50%", "important");
-    endButton.style.setProperty("right", "auto", "important");
-    endButton.style.setProperty("transform", "translateX(-50%)", "important");
-}
-
-window.addEventListener("resize", positionMobileEndButton);
-if (window.visualViewport) {
-    window.visualViewport.addEventListener("resize", positionMobileEndButton);
-    window.visualViewport.addEventListener("scroll", positionMobileEndButton);
-}
-
 function startScreen() {
     document.body.classList.remove("abschlussbildschirm");
     current = null;
@@ -214,7 +185,6 @@ function startScreen() {
         '<div class="buttons" id="buttons"></div>';
 
     const buttons = document.getElementById("buttons");
-
     buttons.append(
         btn("10 Fragen", () => start("10")),
         btn("Endloser Schlamm", () => start("infinite")),
@@ -222,12 +192,12 @@ function startScreen() {
         (() => { const b = btn("Info", () => dlg.showModal()); b.className = "info-button"; return b; })()
     );
 }
+
 function start(selectedMode) {
     mode = selectedMode;
     maxQuestions =
         selectedMode === "10" ? 10 :
         null;
-
     pool = shuffled();
     answered = 0;
     correct = 0;
@@ -267,14 +237,15 @@ function drawQuestion() {
         <div class="prompt">Welches Kapitel gehört zu diesem Kapitelnamen?</div>
         <div class="question">${current[1]}</div>
         <div class="answer-row">
+            <div id="endActionSlot"></div>
             <input class="answer" id="answer" inputmode="decimal" enterkeyhint="done" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false">
             <div id="mobileActionSlot"></div>
         </div>
         <div class="feedback" id="feedback"></div>
         <div class="buttons" id="gameButtons"></div>
     `;
-    const input = document.getElementById("answer");
 
+    const input = document.getElementById("answer");
     const mobileAction = btn("OK", () => {
         if (waiting) {
             next();
@@ -284,16 +255,14 @@ function drawQuestion() {
     });
     mobileAction.className = "mobile-action";
     mobileAction.id = "mobileAction";
-
     document.getElementById("mobileActionSlot").append(mobileAction);
 
     const endButton = btn("Beenden", confirmEnd);
     endButton.className = "game-end-button";
-    document.getElementById("gameButtons").append(endButton);
+    document.getElementById("endActionSlot").append(endButton);
 
     input.focus();
     input.addEventListener("keydown", handleEnter);
-    requestAnimationFrame(positionMobileEndButton);
 }
 
 function handleEnter(event) {
@@ -315,7 +284,6 @@ function check(answer) {
     if (!answer.trim()) {
         return;
     }
-
     const correctAnswer = current[0];
     const correctParts = correctAnswer.split(".").filter(Boolean);
     const normalizedAnswer = answer.trim().replace(/,/g, ".");
@@ -326,7 +294,6 @@ function check(answer) {
     const possiblePoints = points
         .slice(0, correctParts.length)
         .reduce((sum, value) => sum + value, 0);
-
     let earnedPoints = 0;
     correctParts.forEach((part, index) => {
         if (
@@ -344,7 +311,6 @@ function check(answer) {
     if (earnedPoints === possiblePoints) {
         correct++;
     }
-
     waiting = true;
     const feedback = document.getElementById("feedback");
     const input = document.getElementById("answer");
@@ -362,14 +328,13 @@ function check(answer) {
     }
 
     document.querySelector(".status").textContent = status();
-
     if (mobileAction) {
         mobileAction.textContent = "Weiter";
     }
-
     input.readOnly = true;
     input.focus();
 }
+
 function confirmEnd() {
     const overlay = document.createElement("div");
     overlay.className = "end-confirm-overlay";
@@ -412,7 +377,6 @@ Punkte: ${score} von ${maxScore} (${maxScore ? (score / maxScore * 100).toFixed(
             <button type="button" class="result-dialog-close" aria-label="Schließen">×</button>
         </div>
     `;
-
     document.body.appendChild(resultDialog);
     resultDialog.showModal();
 
