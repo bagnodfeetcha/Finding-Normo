@@ -299,3 +299,12 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     transform:translate(-50%, 200%) !important;
   }
 }
+
+
+/* KORREKTUR nur Online: Beenden exakt eine Buttonhöhe (46px) unter die ursprüngliche Position */
+@media(max-width:600px) and (display-mode: browser){
+  .game-end-button{
+    bottom:calc(196px + env(safe-area-inset-bottom)) !important;
+    transform:translateX(-50%) !important;
+  }
+}
