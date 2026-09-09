@@ -275,7 +275,8 @@ function check(answer) {
 
     const correctAnswer = current[0];
     const correctParts = correctAnswer.split(".").filter(Boolean);
-    const answerParts = answer.trim().split(".").filter(Boolean);
+    const normalizedAnswer = answer.trim().replace(/,/g, ".");
+    const answerParts = normalizedAnswer.split(".").filter(Boolean);
 
     const points = [1, 2, 3, 4];
 
@@ -359,11 +360,11 @@ Punkte: ${score} von ${maxScore} (${maxScore ? (score / maxScore * 100).toFixed(
     document.body.classList.add("abschlussbildschirm");
     panel.className = "screen result-screen";
     panel.innerHTML = `
-        <button class="result-close" id="resultClose" aria-label="Schließen">×</button>
         <div class="result-content">
             <h1 class="title">Auswertung</h1>
             <div class="results">${text}</div>
         </div>
+        <button class="result-close" id="resultClose" aria-label="Schließen">×</button>
     `;
 
     document.getElementById("resultClose").onclick = () => {

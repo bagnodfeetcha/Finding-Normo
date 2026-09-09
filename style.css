@@ -24,3 +24,35 @@ body.abschlussbildschirm .result-screen{height:100dvh;min-height:100dvh;width:10
 body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margin:18px auto 0;flex:0 0 auto}
 }
 @media(max-width:600px){body:not(.abschlussbildschirm){background-position:right center}}
+
+
+/* App Iteration 2: ausschließlich die angeforderten Fixes */
+.end-confirm-buttons button{
+  min-width:0;
+  width:72px;
+  padding-left:10px;
+  padding-right:10px;
+}
+
+@media(max-width:600px){
+  /* Falls iOS außerhalb des body einen Safe-Area-Streifen zeigt, liegt dort dasselbe HG-Bild. */
+  html{
+    background-color:#172019;
+    background-image:url("background-mobile.png");
+    background-size:cover;
+    background-position:right center;
+    background-repeat:no-repeat;
+  }
+  html:has(body.abschlussbildschirm){
+    background-image:url("abschlussbildschirm-mobile.png");
+    background-position:center center;
+  }
+
+  /* Auswertung oben, X darunter, mit Abstand. */
+  body.abschlussbildschirm .result-screen{
+    justify-content:center;
+  }
+  body.abschlussbildschirm .result-close{
+    margin:22px auto 0;
+  }
+}
