@@ -246,7 +246,7 @@ function drawQuestion() {
     `;
 
     const input = document.getElementById("answer");
-    const mobileAction = btn("OK", () => {
+    const mobileAction = btn(" OK ", () => {
         if (waiting) {
             next();
         } else {
