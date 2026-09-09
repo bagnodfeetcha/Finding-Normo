@@ -1,4 +1,4 @@
-const CACHE_NAME = "finding-normo-v7";
+const CACHE_NAME = "finding-normo-v8";
 const APP_FILES = [
   "./",
   "./index.html",

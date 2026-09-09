@@ -249,6 +249,14 @@ function drawQuestion() {
     const endButton = btn("Beenden", confirmEnd);
     endButton.className = "game-end-button";
     document.getElementById("gameButtons").append(endButton);
+    if (window.innerWidth <= 600) {
+        requestAnimationFrame(() => {
+            const buttonHeight = endButton.getBoundingClientRect().height || 46;
+            const inputBottom = input.getBoundingClientRect().bottom;
+            endButton.style.setProperty("--end-button-top", `${inputBottom + 1.75 * buttonHeight}px`);
+        });
+    }
+
     input.focus();
     input.addEventListener("keydown", handleEnter);
 }

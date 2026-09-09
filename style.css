@@ -88,3 +88,7 @@ body.abschlussbildschirm .result-close{position:static;right:auto;top:auto;margi
     padding-right:14px;
   }
 }
+
+@media(max-width:600px){
+  .game-end-button{top:var(--end-button-top,66dvh)}
+}
